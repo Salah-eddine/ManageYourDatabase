@@ -8,13 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+ 
+
 
 namespace BaseDeDonnéeClient
 {
     public partial class Form1 : Form
     {
         private TableInformation CurrentTable;
-        private string chaine_connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\elsal\source\repos\ManageYourDatabase\BaseDeDonnéeClient\Database1.mdf;Integrated Security = True; UID=DESKTOP-63E4Q61\elsal";
+        private string chaine_connection = ConfigurationManager.AppSettings["DataSource"];
         public Form1()
         {
             InitializeComponent();
