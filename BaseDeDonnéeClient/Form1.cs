@@ -30,6 +30,7 @@ namespace BaseDeDonnéeClient
             SqlDataReader reader; // S'instancie en appelant la méthode ExecuteReader de la classe Sql Commande au lieu de faire appelle à un constructeur
             SqlConnection cnn;
             string requete = "SELECT * FROM CLIENT;";
+
             cnn = new SqlConnection(this.chaine_connection);
             cnn.Open();
             command = new SqlCommand(requete,cnn);
