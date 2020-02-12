@@ -20,7 +20,11 @@ namespace BaseDeDonnéeClient
             this.CurrentTable = CurrentTable;
             InitializeComponent();
             this.CreateFields();
-            this.SubmitButton();           
+            this.SubmitButton();    
+            for(int i=0;i<columns_field.Count;i++)
+            {
+                MessageBox.Show(columns_field[i].Text) ;
+            }
         }
 
         private void Form2_Closing(object sender, FormClosedEventArgs e)
