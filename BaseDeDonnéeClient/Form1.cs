@@ -13,7 +13,8 @@ namespace BaseDeDonnéeClient
 {
     public partial class Form1 : Form
     {
-        private string chaine_connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\elsal\source\repos\BaseDeDonnéeClient\BaseDeDonnéeClient\BilanCompany.mdf;Integrated Security=True; UID=DESKTOP-RNU0A81/elsal";
+        private TableInformation CurrentTable;
+        private string chaine_connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\elsal\source\repos\ManageYourDatabase\BaseDeDonnéeClient\Database1.mdf;Integrated Security = True; UID=DESKTOP-63E4Q61\elsal";
         public Form1()
         {
             InitializeComponent();
@@ -78,13 +79,14 @@ namespace BaseDeDonnéeClient
         private void insertD_Click(object sender, EventArgs e)
         {
             int i = 0;
-            List<string> columns = new List<string>();
+            List<Type> columns = new List<Type>();
             string tableName,requete;
             SqlCommand command;
             SqlConnection cnn;
             SqlDataReader reader;
             DataSet ds;
             tableName = tables.SelectedItem.ToString();
+            CurrentTable = new TableInformation(tableName);
             requete = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "  +"'"+tableName+"'"+ ";";
             cnn = new SqlConnection(this.chaine_connection);
             cnn.Open();
@@ -92,10 +94,12 @@ namespace BaseDeDonnéeClient
             reader =  command.ExecuteReader();
             while(reader.Read())
             {
-                columns.Add(reader.GetString(0));
-               
+                CurrentTable.AddType(reader.GetFieldType(i));
+                CurrentTable.AddColumnName(reader.GetString(i));                
             }
-            MessageBox.Show(columns[1]);
+
+            Form2 formInsert = new Form2(CurrentTable);
+            formInsert.ShowDialog();
 
 
         }
